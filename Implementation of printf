@@ -1,0 +1,44 @@
+
+#include <iostream>
+#iinclude"stdarg.h"
+
+using namespace std;
+
+
+void print ( char p[] , ... )
+{
+	va_list v ;
+	va_start(v , p ); string h = "";
+	int i = 0;int count = 0; char buffer [200];
+	while ( *p !=  '\0' )
+	{
+		if(*p !='%' ) { h += *p ; p++;}
+		else
+		{
+			if(*(p+1) == 'd' ) 
+			{
+				int temp = va_arg (v ,int );
+				h+=to_string(temp);
+				p=p+2;
+			}
+			else if(*(p+1) == 'c' )
+			{
+				char temp = va_arg ( v , char);
+				h+=temp;p=p+2;
+			}
+			else
+			{
+				float temp = va_arg(v , float ) ;
+				h+=to_string(temp);
+				p=p+2;
+			}
+		}
+	}
+	int z;
+	for(z = 0 ; z <= h.length() ; z++)
+	{
+		buffer[z] = h[z];
+	}
+	buffer[z]='\0';
+	puts(buffer);
+}
