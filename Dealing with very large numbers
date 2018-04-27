@@ -1,4 +1,10 @@
-class unsbigno
+
+/* We want to do the plus and multiplication operations on numbers that are very large to be stord inside even a long long 
+	so i created this class that will take them as strings  */
+
+
+
+class unsbigno 
 {
 	string no;
 public:
