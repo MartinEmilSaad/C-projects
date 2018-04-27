@@ -1,0 +1,67 @@
+//////function to delete separators at the beginning
+
+char * deletesep(char*p ,char*sep)
+{
+	int y = 0;
+	int flag = 0;
+	for(int i = 0 ; i < strlen(p) ; i++)
+	{
+		for(int j = 0 ; j < strlen(sep) ; j++ )
+		{
+			if(p[i]==sep[j])
+			{
+				flag =1 ;
+				p++;
+				break;
+			}
+		}
+		if(flag == 1)
+			break;
+		else 
+			break;
+	}
+	if(flag == 1)
+		deletesep(p , sep );
+	else return p;
+}
+
+// My strtok function
+  char * implementstrtok(char *p , char *sep)
+{
+	static char *first;
+		
+	int i;
+	int j;
+	int flag = 0;
+	int count = 0;
+	 char *copy = NULL;
+	if(p!=NULL)
+	{
+		strcpy(copy , p);
+		first = copy;
+	}
+	first = deletesep(first , sep);
+	while(count < strlen(copy))
+	{
+		for(i = 0 ; i < strlen(sep); i++)
+		{
+			if(copy[count] == sep [i] )
+			{
+				flag =1 ;
+				break;
+			}
+		}
+		if(flag == 1)
+		{
+			first=first+count+1;
+			copy[count] = '\0';
+			break;
+		}
+		else
+		{
+			count++;
+			continue;
+		}
+	}
+	return copy;
+	}
