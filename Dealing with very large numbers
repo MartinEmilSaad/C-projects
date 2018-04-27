@@ -1,0 +1,167 @@
+class unsbigno
+{
+	string no;
+public:
+	unsbigno( string h);
+	unsbigno operator = ( unsbigno);
+	unsbigno operator + ( unsbigno );
+	unsbigno operator * (unsbigno);
+};
+
+
+unsbigno unsbigno::operator* ( unsbigno a )
+{
+	string temp = "";string h ="";
+
+	unsbigno max = (this->no.length() > a.no.length())?*this:a;
+	unsbigno min = (this->no.length() < a.no.length())?*this:a;
+	if(no.length() == a.no.length())
+	{
+		max=*this;
+		min=a;
+	}
+	int count = 0; int rem = 0;
+	vector<string> v;
+	for(int i = min.no.length()-1 ; i>=0;i--)
+	{
+		for(int j = max.no.length()-1;j>=0;j--)
+		{
+			h+=min.no[i];
+			int f1 = atoi(h.c_str());h="";
+			h+=max.no[j];
+			int f2 = atoi(h.c_str());h="";
+			if(j>0)
+			{
+				temp+=to_string( ((f1*f2)+rem) % 10 );
+				rem = ((f1*f2)+rem)/10;
+			}
+			else
+			{
+				string h ="";
+				h+=to_string(f1*f2+rem);
+				reverse(h.begin(),h.end());
+				temp+=h;
+				rem=0;
+			}
+		}
+		reverse(temp.begin() , temp.end());
+		for(int k =0;k<count;k++)
+		{
+			temp+='0';
+		}
+		v.push_back(temp);
+		temp="";
+		count++;
+	}
+
+	unsbigno start (v[0] );
+	for(int i =1;i<v.size();i++)
+	{
+		start=start+v[i];
+	}
+	cout<<endl;
+	for(int i =0;i<start.no.length();i++)
+	{
+		cout<<start.no[i];
+	}
+	cout<<endl;
+	return start;
+}
+
+
+
+
+
+
+
+unsbigno unsbigno::operator=(unsbigno a )
+{
+	no = a . no;
+	return *this;
+}
+
+unsbigno::unsbigno(string h)
+{
+	no = h;
+}
+
+unsbigno unsbigno::operator + (unsbigno a)
+{
+	vector<int> op;
+	int length = no.length();
+	int length2 = (a.no).length();
+	unsbigno max = (length>length2)?*this:a;
+	unsbigno min = (length<length2)?*this:a;
+	if(no.length() == a.no.length())
+	{
+		max=*this;
+		min=a;
+	}
+	int diff = max.no.length() - min.no.length();
+	int rem = 0;
+	string h = "";string h1 = "";
+	int i = min.no.length()-1;
+	if(min.no=="") return max;
+	while(1)
+	{
+		if(i<0 && diff!=0)
+		{
+			i=diff-1;
+			while(i>=0)
+			{
+				h="";
+				h+=max.no[i];
+				if(i>0)
+				{
+					int sum = (atoi(h.c_str())+rem) % 10;
+					op.push_back( ( atoi(h.c_str()) + rem ) % 10 );
+					rem = (atoi(h.c_str())+rem)/10;
+				}
+				else
+				{
+					int sum2 = atoi(h.c_str()) + rem;
+					op.push_back(atoi(h.c_str()) + rem);
+				}
+				i--;
+			}
+			break;
+		}
+		else if(i>=0)
+		{
+			h+=min.no[i];
+			int f1 = atoi(h.c_str());
+			h="";h+=max.no[i+diff];
+			int f2 = atoi(h.c_str());
+			h="";
+
+			if(i>0)
+			{
+			 int sum = (f1+f2+rem)%10;
+			op.push_back((f1+f2+rem)%10);
+			//cout<<op[op.size()-1]<<endl;
+			rem = (f1+f2+rem)/10;
+			}
+			else
+			{
+				int sum2 = (max.no.length()!=min.no.length())?(f1+f2+rem)%10 : f1+f2+rem ;
+
+				op.push_back(sum2);
+				
+				if(max.no.length() == min.no.length() ) rem = 0;
+				else rem = ( (f1+f2+rem)/10);
+			}
+			i--;
+		}
+		else break;
+
+	}
+	string result = "";
+	for(int i =op.size()-1;i>=0;i--)
+	{
+		result+=to_string(op[i]);
+		cout<<op[i];
+	}
+	cout<<endl;
+	unsbigno res (result);
+	return res;
+}
